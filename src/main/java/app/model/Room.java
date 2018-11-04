@@ -16,20 +16,14 @@ public class Room {
     @Column(name = "id")
     public Long id;
 
-    @Column(name = "number")
-    public Long number;
-
     @JoinColumn(name = "floor_id")
     @ManyToOne
     @JsonIgnore
     public Floor floor;
 
-    @Column(name = "width")
-    public BigDecimal width;
+    @Column(name = "floor_area")
+    public BigDecimal floorArea;
 
     @Column(name = "height")
     public BigDecimal height;
-
-    @Column(name = "depth")
-    public BigDecimal depth;
 }

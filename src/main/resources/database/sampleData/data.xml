@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="insert_sample_data" author="janusz.szymkowiak">
+        <sql>
+            insert into building(address, name)
+            values  ('Średnia 45', 'Gimnazjum im. Jana Węglarza'),
+                    ('Berdychowo 21', 'Sklep monopolowy Radość'),
+                    ('Krótka 37', 'Synagoga');
+        </sql>
+        <sql>
+            insert into floor(number, building_id)
+            values  (1, 1),
+                    (2, 1),
+                    (3, 1),
+                    (1, 2),
+                    (1, 3),
+                    (2, 3),
+                    (3, 3),
+                    (4, 3),
+                    (5, 3)
+        </sql>
+        <sql>
+            insert into room(floor_area, height, floor_id)
+            values  (10, 3, 1),
+                    (10, 3, 1),
+                    (10, 3, 1),
+                    (10, 3, 2),
+                    (10, 3, 2),
+                    (10, 3, 2),
+                    (10, 3, 3),
+                    (10, 3, 3),
+                    (10, 3, 3),
+                    (40, 3, 4),
+                    (50, 3, 4),
+                    (200, 12, 5),
+                    (30, 3, 6),
+                    (45, 3, 6),
+                    (20, 3, 6),
+                    (40, 3, 7),
+                    (30, 3, 8),
+                    (20, 3, 9)
+        </sql>
+    </changeSet>
+</databaseChangeLog>

@@ -7,4 +7,6 @@
     <include file="tables/building_table.xml" relativeToChangelogFile="true"/>
     <include file="tables/floor_table.xml" relativeToChangelogFile="true"/>
     <include file="tables/room_table.xml" relativeToChangelogFile="true"/>
+
+    <include file="sampleData/data.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

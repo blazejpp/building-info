@@ -26,7 +26,7 @@
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
                 <jdbc.url>jdbc:mysql://localhost/building-info</jdbc.url>
                 <jdbc.username>root</jdbc.username>
-                <jdbc.password></jdbc.password>
+                <jdbc.password>passwd</jdbc.password>
                 <remote.db.warning>false</remote.db.warning>
                 <spring.profile>dev</spring.profile>
                 <start-class>app.Application</start-class>
@@ -101,6 +101,18 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.0.5</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/database/changelog.xml</changeLogFile>
+                    <driver>${jdbc.driver}</driver>
+                    <url>${jdbc.url}</url>
+                    <username>${jdbc.username}</username>
+                    <password>${jdbc.password}</password>
+                </configuration>
             </plugin>
         </plugins>
     </build>
