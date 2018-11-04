@@ -13,8 +13,15 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
+    public RoomRepository getRepository() {
+        return roomRepository;
+    }
 
     public BigDecimal calculateArea(Room r) {
         return r.floorArea;
+    }
+
+    public BigDecimal calculateVolume(Room r) {
+        return r.floorArea.multiply(r.height);
     }
 }

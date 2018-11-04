@@ -23,4 +23,8 @@ public class FloorService {
     public BigDecimal calculateArea(Floor floor) {
         return floor.rooms.stream().map(r -> roomService.calculateArea(r)).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    public BigDecimal calculateVolume(Floor floor) {
+        return floor.rooms.stream().map(r -> roomService.calculateVolume(r)).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }
