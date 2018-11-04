@@ -16,6 +16,9 @@ public class Room {
     @Column(name = "id")
     public Long id;
 
+    @Column(name = "number")
+    public Long number;
+
     @JoinColumn(name = "floor_id")
     @ManyToOne
     @JsonIgnore

@@ -37,4 +37,11 @@
         <dropColumn tableName="room" columnName="width" />
         <dropColumn tableName="room" columnName="depth"/>
     </changeSet>
+    <changeSet id="add_room_number" author="janusz.szymkowiak">
+        <addColumn tableName="room">
+            <column name="number" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

@@ -16,6 +16,10 @@ public class FloorService {
     @Autowired
     private RoomService roomService;
 
+    public FloorRepository getRepository() {
+        return floorRepository;
+    }
+
     public BigDecimal calculateArea(Floor floor) {
         return floor.rooms.stream().map(r -> roomService.calculateArea(r)).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
