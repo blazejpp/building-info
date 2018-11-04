@@ -26,7 +26,7 @@
                 <jdbc.driver>com.mysql.jdbc.Driver</jdbc.driver>
                 <jdbc.url>jdbc:mysql://localhost/building-info</jdbc.url>
                 <jdbc.username>root</jdbc.username>
-                <jdbc.password>passwd</jdbc.password>
+                <jdbc.password></jdbc.password>
                 <remote.db.warning>false</remote.db.warning>
                 <spring.profile>dev</spring.profile>
                 <start-class>app.Application</start-class>
