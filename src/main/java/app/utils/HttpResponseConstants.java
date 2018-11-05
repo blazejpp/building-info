@@ -1,4 +1,4 @@
-package app.httpUtils;
+package app.utils;
 
 public class HttpResponseConstants {
 

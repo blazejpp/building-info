@@ -1,4 +1,4 @@
-package app.httpUtils;
+package app.utils;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
