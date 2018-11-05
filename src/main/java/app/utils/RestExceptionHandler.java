@@ -1,6 +1,5 @@
 package app.utils;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -41,10 +40,5 @@ public class RestExceptionHandler {
         return ResponseEntity.status(500).build();
     }
 
-    @ExceptionHandler(InvalidArgumentException.class)
-    @ResponseBody
-    public ResponseEntity invalidArgument(InvalidArgumentException exc) {
-        return ResponseEntity.unprocessableEntity().build();
-    }
 
 }

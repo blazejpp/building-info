@@ -14,8 +14,6 @@
         <version>2.1.0.RELEASE</version>
     </parent>
 
-    <packaging>pom</packaging>
-
     <profiles>
         <profile>
             <id>dev</id>
