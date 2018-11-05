@@ -22,9 +22,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by visix on 23.06.2017.
- */
 public class FloorServiceTest {
 
     @Mock
