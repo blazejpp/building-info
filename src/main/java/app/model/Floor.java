@@ -9,21 +9,22 @@ import java.util.List;
 
 @Entity
 @Table(name = "floor")
+@Data
 public class Floor {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    public Long id;
+    private Long id;
 
     @Column(name = "number")
-    public Long number;
+    private Long number;
 
     @JoinColumn(name = "building_id")
     @ManyToOne
     @JsonIgnore
-    public Building building;
+    private Building building;
 
     @OneToMany(mappedBy = "floor")
-    public List<Room> rooms;
+    private List<Room> rooms;
 }

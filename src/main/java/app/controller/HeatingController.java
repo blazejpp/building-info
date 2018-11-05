@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/volume")
-public class VolumeController {
+@RequestMapping("/heating")
+public class HeatingController {
 
     @Autowired
     private BuildingService buildingService;
@@ -31,37 +33,50 @@ public class VolumeController {
     @Autowired
     private RoomService roomService;
 
-    @ApiOperation(value = "Returns total building volume by id")
+    @ApiOperation(value = "Returns heating per volume in building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/building/{id}", method = GET)
-    public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) {
+    public ResponseEntity getBuildingHeating(@PathVariable("id") Long id) {
         Building building = buildingService.getRepository().getById(id);
-        return new ResponseEntity<>(buildingService.calculateVolume(building), HttpStatus.OK);
+        return new ResponseEntity<>(buildingService.calculateHeatingPerVolume(building), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Returns total floor volume by number and building id")
+    @ApiOperation(value = "Returns heating per volume on floor by number and building id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/floor/{id}/{number}", method = GET)
-    public ResponseEntity getFloorVolume(@PathVariable("id") Long id,
+    public ResponseEntity getFloorHeating(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(floorService.calculateVolume(floor), HttpStatus.OK);
+        return new ResponseEntity<>(floorService.calculateHeatingPerVolume(floor), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Returns total room volume by number and building id")
+    @ApiOperation(value = "Returns heating per volume in room by number and building id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/room/{id}/{number}", method = GET)
-    public ResponseEntity getRoomVolume(@PathVariable("id") Long id,
+    public ResponseEntity getRoomHeating(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(roomService.calculateVolume(room), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.calculateHeatingPerVolume(room), HttpStatus.OK);
     }
+
+    @ApiOperation(value = "Returns rooms exceeding given level of heating per volume by building id")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "buildingId", value = "Building ID", dataType = "long", paramType = "path"),
+            @ApiImplicitParam(name = "heating", value = "Heating per volume", dataType = "double", paramType = "path")
+    })
+    @RequestMapping(value = "/excess/{buildingId}/{heating}", method = GET)
+    public ResponseEntity getRoomsExceedingHeating(@PathVariable("buildingId") Long buildingId,
+                                                  @PathVariable("heating") BigDecimal heating) {
+        Building building = buildingService.getRepository().getById(buildingId);
+        return new ResponseEntity<>(buildingService.getRoomsExceedingHeating(building, heating), HttpStatus.OK);
+    }
+
 }

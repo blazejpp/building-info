@@ -45,4 +45,12 @@
                     (6, 20, 3, 9)
         </sql>
     </changeSet>
+    <changeSet id="insert_lighting_and_heating_data" author="janusz.szymkowiak">
+        <sql>
+            update room set lighting_power=floor_area+(number+floor_id)*0.7
+        </sql>
+        <sql>
+            update room set heating_power=floor_area*(height+floor_id)*70+(number+floor_id)*0.9
+        </sql>
+    </changeSet>
 </databaseChangeLog>

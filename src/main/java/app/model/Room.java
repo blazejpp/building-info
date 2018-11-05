@@ -9,24 +9,31 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "room")
+@Data
 public class Room {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    public Long id;
+    private Long id;
 
     @Column(name = "number")
-    public Long number;
+    private Long number;
 
     @JoinColumn(name = "floor_id")
     @ManyToOne
     @JsonIgnore
-    public Floor floor;
+    private Floor floor;
 
     @Column(name = "floor_area")
-    public BigDecimal floorArea;
+    private BigDecimal floorArea;
 
     @Column(name = "height")
-    public BigDecimal height;
+    private BigDecimal height;
+
+    @Column(name = "lighting_power")
+    private BigDecimal lightingPower;
+
+    @Column(name = "heatingPower")
+    private BigDecimal heatingPower;
 }

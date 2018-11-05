@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/volume")
-public class VolumeController {
+@RequestMapping("/lighting")
+public class LightingController {
 
     @Autowired
     private BuildingService buildingService;
@@ -31,37 +31,38 @@ public class VolumeController {
     @Autowired
     private RoomService roomService;
 
-    @ApiOperation(value = "Returns total building volume by id")
+    @ApiOperation(value = "Returns lighting per area in building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/building/{id}", method = GET)
-    public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) {
+    public ResponseEntity getBuildingLighting(@PathVariable("id") Long id) {
         Building building = buildingService.getRepository().getById(id);
-        return new ResponseEntity<>(buildingService.calculateVolume(building), HttpStatus.OK);
+        return new ResponseEntity<>(buildingService.calculateLightingPerArea(building), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Returns total floor volume by number and building id")
+    @ApiOperation(value = "Returns lighting per area on floor by number and building id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/floor/{id}/{number}", method = GET)
-    public ResponseEntity getFloorVolume(@PathVariable("id") Long id,
+    public ResponseEntity getFloorArea(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(floorService.calculateVolume(floor), HttpStatus.OK);
+        return new ResponseEntity<>(floorService.calculateLightingPerArea(floor), HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Returns total room volume by number and building id")
+    @ApiOperation(value = "Returns lighting per area in room by number and building id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/room/{id}/{number}", method = GET)
-    public ResponseEntity getRoomVolume(@PathVariable("id") Long id,
+    public ResponseEntity getRoomArea(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(roomService.calculateVolume(room), HttpStatus.OK);
+        return new ResponseEntity<>(roomService.calculateLightingPerArea(room), HttpStatus.OK);
     }
+
 }

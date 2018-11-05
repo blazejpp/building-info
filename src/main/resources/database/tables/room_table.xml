@@ -44,4 +44,14 @@
             </column>
         </addColumn>
     </changeSet>
+    <changeSet id="add_lighting_and_heating_power" author="janusz.szymkowiak">
+        <addColumn tableName="room">
+            <column name="lighting_power" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="heating_power" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

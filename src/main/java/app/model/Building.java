@@ -8,20 +8,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "building")
+@Data
 public class Building {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    public Long id;
+    private Long id;
 
     @Column(name = "address")
-    public String address;
+    private String address;
 
     @Column(name = "name")
-    public String name;
+    private String name;
 
     @OneToMany(mappedBy = "building")
-    public List<Floor> floors;
+    private List<Floor> floors;
 
 }
