@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 
@@ -28,11 +29,19 @@ public class RestExceptionController extends Controller {
         return respond(HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(value = BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseBody
+    public ResponseEntity typeError(MethodArgumentTypeMismatchException exc) {
+        log.debug("type conversion failed", exc);
+        return respond(HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EmptyResultDataAccessException.class)
     @ResponseStatus(value = NOT_FOUND)
     @ResponseBody
     public ResponseEntity notFoundError(EmptyResultDataAccessException exc) {
-        log.debug("resounce not found", exc);
+        log.debug("resource not found", exc);
         return respond(HttpStatus.NOT_FOUND);
     }
 
