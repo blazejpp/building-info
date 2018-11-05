@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 @RequestMapping("/building")
 @Api(value = "Building controller", description = "Building controller")
-public class BuildingController {
+public class BuildingController extends Controller {
 
     @Autowired
     private BuildingService buildingService;
@@ -27,7 +27,7 @@ public class BuildingController {
     })
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity getBuilding(@PathVariable("id") Long id) throws IOException {
-        return ResponseEntity.ok().body(buildingService.getRepository().getById(id));
+        return respond(buildingService.getRepository().getById(id), HttpStatus.OK);
     }
 
 }

@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/volume")
-public class VolumeController {
+public class VolumeController extends Controller {
 
     @Autowired
     private BuildingService buildingService;
@@ -36,9 +38,9 @@ public class VolumeController {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/building/{id}", method = GET)
-    public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) {
+    public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return new ResponseEntity<>(buildingService.calculateVolume(building), HttpStatus.OK);
+        return respond(buildingService.calculateVolume(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total floor volume by number and building id")
@@ -48,9 +50,9 @@ public class VolumeController {
     })
     @RequestMapping(value = "/floor/{id}/{number}", method = GET)
     public ResponseEntity getFloorVolume(@PathVariable("id") Long id,
-                                       @PathVariable("number") Long number) {
+                                       @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(floorService.calculateVolume(floor), HttpStatus.OK);
+        return respond(floorService.calculateVolume(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total room volume by number and building id")
@@ -60,8 +62,8 @@ public class VolumeController {
     })
     @RequestMapping(value = "/room/{id}/{number}", method = GET)
     public ResponseEntity getRoomVolume(@PathVariable("id") Long id,
-                                      @PathVariable("number") Long number) {
+                                      @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(roomService.calculateVolume(room), HttpStatus.OK);
+        return respond(roomService.calculateVolume(room), HttpStatus.OK);
     }
 }

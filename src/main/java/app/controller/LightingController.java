@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 @RequestMapping("/lighting")
-public class LightingController {
+public class LightingController extends Controller {
 
     @Autowired
     private BuildingService buildingService;
@@ -36,9 +38,9 @@ public class LightingController {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
     @RequestMapping(value = "/building/{id}", method = GET)
-    public ResponseEntity getBuildingLighting(@PathVariable("id") Long id) {
+    public ResponseEntity getBuildingLighting(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return new ResponseEntity<>(buildingService.calculateLightingPerArea(building), HttpStatus.OK);
+        return respond(buildingService.calculateLightingPerArea(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns lighting per area on floor by number and building id")
@@ -48,9 +50,9 @@ public class LightingController {
     })
     @RequestMapping(value = "/floor/{id}/{number}", method = GET)
     public ResponseEntity getFloorArea(@PathVariable("id") Long id,
-                                       @PathVariable("number") Long number) {
+                                       @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(floorService.calculateLightingPerArea(floor), HttpStatus.OK);
+        return respond(floorService.calculateLightingPerArea(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns lighting per area in room by number and building id")
@@ -60,9 +62,9 @@ public class LightingController {
     })
     @RequestMapping(value = "/room/{id}/{number}", method = GET)
     public ResponseEntity getRoomArea(@PathVariable("id") Long id,
-                                      @PathVariable("number") Long number) {
+                                      @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return new ResponseEntity<>(roomService.calculateLightingPerArea(room), HttpStatus.OK);
+        return respond(roomService.calculateLightingPerArea(room), HttpStatus.OK);
     }
 
 }
