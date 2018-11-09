@@ -1,4 +1,4 @@
-# Building Info
+# Building Info ![Building status](https://travis-ci.org/blazejpp/building-info.svg?branch=master)
 
 ## Opis projektu
 Aplikacja dla administratorów budynków, którzy pragną optymalizować koszty zarządzania budynkami. Nasza aplikacja Building Info umożliwi pozyskanie informacji o parametrach budynku na poziomie pomieszczeń, kondygnacji oraz całych budynków. Aplikacja będzie dostępna poprzez GUI a także jako zdalne API dzięki czemu można ją zintegrować z istniejącymi narzędziami.
