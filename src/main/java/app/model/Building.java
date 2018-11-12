@@ -6,6 +6,21 @@ import org.springframework.stereotype.Service;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Building to klasa opisująca strukturę budynku.
+ * <p>
+ * Zawiera następujące pola:
+ * <ul>
+ * <li> id - indeks pozwalający na jednoznaczną identyfikację budynku
+ * <li> address - adres budynku
+ * <li> name - nazwę budynku
+ * <li> floors - lista przechowująca piętera należące do danego budynku
+ * </ul>
+ * <p>
+ * Klasa zawiera zdefiniowane mapowanie z bazą danych.
+ * <p>
+ * Zastosowanie adnotacji @Date pozwala na generowanie tzw. boilerplate automatycznie.
+ */
 @Entity
 @Table(name = "building")
 @Data
