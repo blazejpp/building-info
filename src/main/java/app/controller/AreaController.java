@@ -37,6 +37,7 @@ public class AreaController extends Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/area", method = GET)
     public ResponseEntity getBuildingArea(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
@@ -48,6 +49,7 @@ public class AreaController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/floors/{number}/area", method = GET)
     public ResponseEntity getFloorArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {
@@ -60,6 +62,7 @@ public class AreaController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/rooms/{number}/area", method = GET)
     public ResponseEntity getRoomArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {

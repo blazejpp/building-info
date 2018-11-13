@@ -37,6 +37,7 @@ public class VolumeController extends Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/volume", method = GET)
     public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
@@ -48,6 +49,7 @@ public class VolumeController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/floors/{number}/volume", method = GET)
     public ResponseEntity getFloorVolume(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
@@ -60,6 +62,7 @@ public class VolumeController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/rooms/{number}/volume", method = GET)
     public ResponseEntity getRoomVolume(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {

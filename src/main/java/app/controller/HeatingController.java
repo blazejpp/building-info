@@ -38,6 +38,7 @@ public class HeatingController extends Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/heating", method = GET)
     public ResponseEntity getBuildingHeating(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
@@ -49,6 +50,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/floors/{number}/heating", method = GET)
     public ResponseEntity getFloorHeating(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
@@ -61,6 +63,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
+
     @RequestMapping(value = "/{id}/rooms/{number}/heating", method = GET)
     public ResponseEntity getRoomHeating(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {
