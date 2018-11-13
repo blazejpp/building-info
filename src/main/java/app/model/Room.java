@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * <p>
  * Zawiera następujące pola:
  * <ul>
- * <li> id - indeks pozwalający na jednoznaczną identyfikację pokój generowany automatycznie
+ * <li> id - indeks pozwalający na jednoznaczną identyfikację pokoju generowany automatycznie
  * <li> number - numer pokoju
  * <li> floor - piętro, do którego pokój przynależy
  * <li> floorArea - powierzchnia pokoju 
@@ -25,7 +25,7 @@ import java.math.BigDecimal;
  * <p>
  * Klasa zawiera zdefiniowane mapowanie z bazą danych.
  * <p>
- * Zastosowanie adnotacji @Date pozwala na generowanie tzw. boilerplate automatycznie.
+ * Zastosowanie adnotacji @Data pozwala na generowanie tzw. boilerplate automatycznie.
  */
 @Entity
 @Table(name = "room")

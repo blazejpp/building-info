@@ -17,12 +17,12 @@ import java.util.List;
  * <li> id - indeks pozwalający na jednoznaczną identyfikację piętra generowany automatycznie
  * <li> number - numer piętra
  * <li> building - budynek, do którego piętro przynależy
- * <li> rooms - listę przechowującą pokoje znajdujące się na danym piętrze
+ * <li> rooms - lista przechowująca pokoje znajdujące się na danym piętrze
  * </ul>
  * <p>
  * Klasa zawiera zdefiniowane mapowanie z bazą danych.
  * <p>
- * Zastosowanie adnotacji @Date pozwala na generowanie tzw. boilerplate automatycznie.
+ * Zastosowanie adnotacji @Data pozwala na generowanie tzw. boilerplate automatycznie.
  */
 @Entity
 @Table(name = "floor")
