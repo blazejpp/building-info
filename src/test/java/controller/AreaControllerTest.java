@@ -21,7 +21,7 @@ public class AreaControllerTest extends IntegrationTest {
     @Test
     public void shouldCalculateArea() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(get(AREA_ENDPOINT_PATH + "building/1"))
+        MvcResult mvcResult = mockMvc.perform(get(AREA_ENDPOINT_PATH + "buildings/1"))
                 .andExpect(status().isOk())
                 .andReturn();
 

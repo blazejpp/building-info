@@ -14,7 +14,7 @@ import java.io.IOException;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/building")
+@RequestMapping("/buildings")
 @Api(value = "Building controller", description = "Building controller")
 public class BuildingController extends Controller {
 
