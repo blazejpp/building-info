@@ -16,12 +16,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AreaControllerTest extends IntegrationTest {
 
-    private static final String AREA_ENDPOINT_PATH = "/area/";
+//    private static final String AREA_ENDPOINT_PATH = "/area/";
 
     @Test
     public void shouldCalculateArea() throws Exception {
 
-        MvcResult mvcResult = mockMvc.perform(get(AREA_ENDPOINT_PATH + "building/1"))
+        MvcResult mvcResult = mockMvc.perform(get("/buildings/1/area"))
                 .andExpect(status().isOk())
                 .andReturn();
 

@@ -21,7 +21,7 @@ import java.io.IOException;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/area")
+@RequestMapping("/buildings")
 public class AreaController extends Controller {
 
     @Autowired
@@ -37,7 +37,7 @@ public class AreaController extends Controller {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
-    @RequestMapping(value = "/building/{id}", method = GET)
+    @RequestMapping(value = "/{id}/area", method = GET)
     public ResponseEntity getBuildingArea(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
         return respond(buildingService.calculateArea(building), HttpStatus.OK);
@@ -48,7 +48,7 @@ public class AreaController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
-    @RequestMapping(value = "/floor/{id}/{number}", method = GET)
+    @RequestMapping(value = "/{id}/floors/{number}/area", method = GET)
     public ResponseEntity getFloorArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
@@ -60,7 +60,7 @@ public class AreaController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
-    @RequestMapping(value = "/room/{id}/{number}", method = GET)
+    @RequestMapping(value = "/{id}/rooms/{number}/area", method = GET)
     public ResponseEntity getRoomArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
