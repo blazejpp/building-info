@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping("/buildings")
+@RequestMapping("/heating")
 public class HeatingController extends Controller {
 
     @Autowired
@@ -39,7 +39,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
     })
 
-    @RequestMapping(value = "/{id}/heating", method = GET)
+    @RequestMapping(value = "/building/{id}", method = GET)
     public ResponseEntity getBuildingHeating(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
         return respond(buildingService.calculateHeatingPerVolume(building), HttpStatus.OK);
@@ -51,7 +51,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "number", value = "Floor number", dataType = "long", paramType = "path")
     })
 
-    @RequestMapping(value = "/{id}/floors/{number}/heating", method = GET)
+    @RequestMapping(value = "/building/{id}/floor/{number}", method = GET)
     public ResponseEntity getFloorHeating(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
@@ -64,7 +64,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "number", value = "Room number", dataType = "long", paramType = "path")
     })
 
-    @RequestMapping(value = "/{id}/rooms/{number}/heating", method = GET)
+    @RequestMapping(value = "/building/{id}/room/{number}", method = GET)
     public ResponseEntity getRoomHeating(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
@@ -76,7 +76,7 @@ public class HeatingController extends Controller {
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path"),
             @ApiImplicitParam(name = "heating", value = "Heating per volume", dataType = "double", paramType = "path")
     })
-    @RequestMapping(value = "/{id}/heating/excess/{heating}", method = GET)
+    @RequestMapping(value = "/building/{id}/excess/{heating}", method = GET)
     public ResponseEntity getRoomsExceedingHeating(@PathVariable("id") Long id,
                                                   @PathVariable("heating") BigDecimal heating) throws IOException {
         Building building = buildingService.getRepository().getById(id);
