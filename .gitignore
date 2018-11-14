@@ -1,5 +1,4 @@
 .idea/
 target/
 building-info.iml
-jar/
 *.log
