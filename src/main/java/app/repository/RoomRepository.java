@@ -8,4 +8,6 @@ import org.springframework.data.repository.query.Param;
 public interface RoomRepository extends JpaRepository<Room, Long> {
     @Query("select r from Room r where r.floor.building.id = :id and r.number = :number")
     Room findByBuildingIdAndNumber(@Param("id") Long id, @Param("number") Long number);
+
+    Room getById(Long id);
 }
