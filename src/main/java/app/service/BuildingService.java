@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BuildingService {
+public class BuildingService implements GenericService<Building> {
 
     @Autowired
     private BuildingRepository buildingRepository;

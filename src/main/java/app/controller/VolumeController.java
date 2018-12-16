@@ -6,6 +6,7 @@ import app.model.Room;
 import app.service.BuildingService;
 import app.service.FloorService;
 import app.service.RoomService;
+import app.visitor.VolumeVisitor;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,9 @@ public class VolumeController extends Controller {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private VolumeVisitor volumeVisitor;
+
     @ApiOperation(value = "Returns total building volume by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -41,7 +45,7 @@ public class VolumeController extends Controller {
     @RequestMapping(value = "/building/{id}", method = GET)
     public ResponseEntity getBuildingVolume(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return respond(buildingService.calculateVolume(building), HttpStatus.OK);
+        return respond(volumeVisitor.calculate(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total floor volume by number and building id")
@@ -54,7 +58,7 @@ public class VolumeController extends Controller {
     public ResponseEntity getFloorVolume(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(floorService.calculateVolume(floor), HttpStatus.OK);
+        return respond(volumeVisitor.calculate(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total room volume by number and building id")
@@ -67,6 +71,6 @@ public class VolumeController extends Controller {
     public ResponseEntity getRoomVolume(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(roomService.calculateVolume(room), HttpStatus.OK);
+        return respond(volumeVisitor.calculate(room), HttpStatus.OK);
     }
 }

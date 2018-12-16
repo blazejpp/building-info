@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 
 @Service
-public class RoomService {
+public class RoomService implements GenericService<Room> {
 
     @Autowired
     private RoomRepository roomRepository;

@@ -30,7 +30,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Floor {
+public class Floor extends Model {
 
     @Id
     @GeneratedValue

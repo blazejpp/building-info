@@ -33,7 +33,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room {
+public class Room extends Model {
 
     @Id
     @GeneratedValue

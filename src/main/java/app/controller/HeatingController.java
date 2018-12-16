@@ -6,6 +6,7 @@ import app.model.Room;
 import app.service.BuildingService;
 import app.service.FloorService;
 import app.service.RoomService;
+import app.visitor.HeatingVisitor;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +35,9 @@ public class HeatingController extends Controller {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private HeatingVisitor heatingVisitor;
+
     @ApiOperation(value = "Returns heating per volume in building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -42,7 +46,7 @@ public class HeatingController extends Controller {
     @RequestMapping(value = "/building/{id}", method = GET)
     public ResponseEntity getBuildingHeating(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return respond(buildingService.calculateHeatingPerVolume(building), HttpStatus.OK);
+        return respond(heatingVisitor.calculate(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns heating per volume on floor by number and building id")
@@ -55,7 +59,7 @@ public class HeatingController extends Controller {
     public ResponseEntity getFloorHeating(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(floorService.calculateHeatingPerVolume(floor), HttpStatus.OK);
+        return respond(heatingVisitor.calculate(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns heating per volume in room by number and building id")
@@ -68,7 +72,7 @@ public class HeatingController extends Controller {
     public ResponseEntity getRoomHeating(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(roomService.calculateHeatingPerVolume(room), HttpStatus.OK);
+        return respond(heatingVisitor.calculate(room), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns rooms exceeding given level of heating per volume by building id")

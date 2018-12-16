@@ -6,6 +6,7 @@ import app.model.Room;
 import app.service.BuildingService;
 import app.service.FloorService;
 import app.service.RoomService;
+import app.visitor.AreaVisitor;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,9 @@ public class AreaController extends Controller {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private AreaVisitor areaVisitor;
+
     @ApiOperation(value = "Returns total building area by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -41,7 +45,7 @@ public class AreaController extends Controller {
     @RequestMapping(value = "/building/{id}", method = GET)
     public ResponseEntity getBuildingArea(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return respond(buildingService.calculateArea(building), HttpStatus.OK);
+        return respond(areaVisitor.calculate(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total floor area by number and building id")
@@ -54,7 +58,7 @@ public class AreaController extends Controller {
     public ResponseEntity getFloorArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(floorService.calculateArea(floor), HttpStatus.OK);
+        return respond(areaVisitor.calculate(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns total room area by number and building id")
@@ -67,6 +71,6 @@ public class AreaController extends Controller {
     public ResponseEntity getRoomArea(@PathVariable("id") Long id,
                                                    @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(roomService.calculateArea(room), HttpStatus.OK);
+        return respond(areaVisitor.calculate(room), HttpStatus.OK);
     }
 }

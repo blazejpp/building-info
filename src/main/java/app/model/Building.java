@@ -27,7 +27,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Building {
+public class Building extends Model {
 
     @Id
     @GeneratedValue

@@ -6,6 +6,7 @@ import app.model.Room;
 import app.service.BuildingService;
 import app.service.FloorService;
 import app.service.RoomService;
+import app.visitor.LightingVisitor;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -33,6 +34,9 @@ public class LightingController extends Controller {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
+    private LightingVisitor lightingVisitor;
+
     @ApiOperation(value = "Returns lighting per area in building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -41,7 +45,7 @@ public class LightingController extends Controller {
     @RequestMapping(value = "/building/{id}", method = GET)
     public ResponseEntity getBuildingLighting(@PathVariable("id") Long id) throws IOException {
         Building building = buildingService.getRepository().getById(id);
-        return respond(buildingService.calculateLightingPerArea(building), HttpStatus.OK);
+        return respond(lightingVisitor.calculate(building), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns lighting per area on floor by number and building id")
@@ -54,7 +58,7 @@ public class LightingController extends Controller {
     public ResponseEntity getFloorLighting(@PathVariable("id") Long id,
                                        @PathVariable("number") Long number) throws IOException {
         Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(floorService.calculateLightingPerArea(floor), HttpStatus.OK);
+        return respond(lightingVisitor.calculate(floor), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Returns lighting per area in room by number and building id")
@@ -67,7 +71,7 @@ public class LightingController extends Controller {
     public ResponseEntity getRoomLighting(@PathVariable("id") Long id,
                                       @PathVariable("number") Long number) throws IOException {
         Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);
-        return respond(roomService.calculateLightingPerArea(room), HttpStatus.OK);
+        return respond(lightingVisitor.calculate(room), HttpStatus.OK);
     }
 
 }
