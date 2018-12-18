@@ -97,10 +97,7 @@ public class FloorServiceTest {
         when(roomService.calculateArea(any())).thenReturn(getArea());
         when(roomService.calculateLighting(any())).thenReturn(getLighting());
 
-        Floor floor = getFloor();
-        BigDecimal lighting = floorService.calculateLighting(floor);
-        BigDecimal area = floorService.calculateArea(floor);
-        BigDecimal result = lighting.divide(area, MathContext.DECIMAL32);
+        BigDecimal result = floorService.calculateLightingPerArea(getFloor());
 
         assertThat("lightningPerArea", result, is(equalTo(BigDecimal.valueOf(1))));
     }
