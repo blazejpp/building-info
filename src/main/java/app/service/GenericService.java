@@ -5,6 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.math.BigDecimal;
 
+/**
+ * GenericService to interfejs będący częścią wzroca projektowego <b>Strategia</b>. 
+ * Definiuje on operacje, które muszą obsługiwać wszystkie dostępne algorytmy.
+*/
+
 public interface GenericService<T extends Model> {
 
     JpaRepository<T, Long> getRepository();
