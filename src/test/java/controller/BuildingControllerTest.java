@@ -15,9 +15,7 @@ import java.math.BigDecimal;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.http.MediaType;
 
@@ -70,6 +68,27 @@ public class BuildingControllerTest extends IntegrationTest {
     }
 
     @Test
+    public void shouldCreateNewBuilding() throws Exception {
+
+        int buildingsCount = buildingService.getRepository().findAll().size();;
+
+        Building building = new Building();
+        building.setName("Building");
+        building.setAddress("address");
+        MvcResult mvcResult = mockMvc.perform(post(BUILDINGS_ENDPOINT_PATH)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(asJsonString(building)))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        int buildingsCountAfterCreate = buildingService.getRepository().findAll().size();
+
+        assertThat("new building is added", buildingsCount + 1, is(equalTo(buildingsCountAfterCreate)));
+    }
+
+
+
+    @Test
     public void shouldDeleteSpecificBuilding() throws Exception {
 
         int buildingsCount = buildingService.getRepository().findAll().size();;
@@ -100,7 +119,7 @@ public class BuildingControllerTest extends IntegrationTest {
         Building editedBuilding = buildingService.getRepository().getOne(new Long(2));
 
 
-        assertThat("building is deleted from db", editedBuilding.getAddress(), is(equalTo(newAddress)));
+        assertThat("building is edited", editedBuilding.getAddress(), is(equalTo(newAddress)));
     }
 
 
