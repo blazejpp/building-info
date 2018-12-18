@@ -99,7 +99,7 @@ public class BuildingControllerTest extends IntegrationTest {
 
         int buildingsCountAfterDelete = buildingService.getRepository().findAll().size();
 
-        assertThat("building is deleted from db", buildingsCount - buildingsCountAfterDelete, is(equalTo(1)));
+        assertThat("building is deleted from db", buildingsCount - 1, is(equalTo(buildingsCountAfterDelete)));
     }
 
     @Test
