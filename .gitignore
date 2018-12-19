@@ -2,3 +2,4 @@
 target/
 building-info.iml
 *.log
+*.gz
