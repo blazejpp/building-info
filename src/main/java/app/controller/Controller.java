@@ -16,7 +16,7 @@ public abstract class Controller {
     }
 
     protected ResponseEntity respond(HttpStatus status) {
-        log.info("responding with status {} - {}, empty body", status.value(), status.getReasonPhrase());
-        return ResponseEntity.status(status).build();
+        log.info("responding with status {} - {}", status.value(), status.getReasonPhrase());
+        return ResponseEntity.status(status).body(String.format("%d - %s", status.value(), status.getReasonPhrase()));
     }
 }

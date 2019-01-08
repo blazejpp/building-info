@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +44,14 @@ public class RestExceptionController extends Controller {
     public ResponseEntity notFoundError(EmptyResultDataAccessException exc) {
         log.debug("resource not found", exc);
         return respond(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(value = FORBIDDEN)
+    @ResponseBody
+    public ResponseEntity accessDeniedError(AccessDeniedException exc) {
+        log.debug("access denied", exc);
+        return respond(HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(Exception.class)

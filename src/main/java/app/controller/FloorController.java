@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,14 @@ public class FloorController extends Controller {
     @Autowired
     private FloorService floorService;
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Returns all floors")
     @RequestMapping(method = GET)
     public ResponseEntity getAllFloors() throws IOException {
         return respond(floorService.getRepository().findAll(), HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Returns floor by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Floor ID", dataType = "long", paramType = "path")
@@ -38,6 +41,7 @@ public class FloorController extends Controller {
         return respond(floorService.getRepository().getById(id), HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Deletes floor by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Floor ID", dataType = "long", paramType = "path")
@@ -48,6 +52,7 @@ public class FloorController extends Controller {
         return respond(HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Modifies floor by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Floor ID", dataType = "long", paramType = "path")
@@ -60,6 +65,7 @@ public class FloorController extends Controller {
         return respond(HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Adds floor")
     @RequestMapping(method = POST)
     public ResponseEntity addFloor(@RequestBody Floor floor) throws IOException {

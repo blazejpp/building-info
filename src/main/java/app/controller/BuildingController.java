@@ -6,6 +6,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,14 @@ public class BuildingController extends Controller {
     @Autowired
     private BuildingService buildingService;
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Returns all buildings")
     @RequestMapping(method = GET)
     public ResponseEntity getAllBuildings() throws IOException {
         return respond(buildingService.getRepository().findAll(), HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Returns building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -38,6 +41,7 @@ public class BuildingController extends Controller {
         return respond(buildingService.getRepository().getById(id), HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Deletes building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -48,6 +52,7 @@ public class BuildingController extends Controller {
         return respond(HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Modifies building by id")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "Building ID", dataType = "long", paramType = "path")
@@ -60,6 +65,7 @@ public class BuildingController extends Controller {
         return respond(HttpStatus.OK);
     }
 
+    @Secured("ROLE_ADMIN")
     @ApiOperation(value = "Adds building")
     @RequestMapping(method = POST)
     public ResponseEntity addBuilding(@RequestBody Building building) throws IOException {
