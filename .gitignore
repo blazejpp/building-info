@@ -3,3 +3,4 @@ target/
 building-info.iml
 *.log
 *.gz
+apache-jmeter-5.0/
