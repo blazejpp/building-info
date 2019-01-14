@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: BuildingController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: BuildingController (app.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BuildingController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Building;
+<i>4</i>&nbsp;import app.service.BuildingService;
+<i>5</i>&nbsp;import io.swagger.annotations.*;
+<i>6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>7</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>8</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>9</i>&nbsp;import org.springframework.security.access.annotation.Secured;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+<i>11</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i>12</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>13</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.io.IOException;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import static org.springframework.web.bind.annotation.RequestMethod.*;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;@RestController
+<i>20</i>&nbsp;@RequestMapping(&quot;/buildings&quot;)
+<b class="fc"><i>21</i>&nbsp;@Api(value = &quot;Building controller&quot;, description = &quot;Building controller&quot;)</b>
+<i>22</i>&nbsp;public class BuildingController extends Controller {
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Autowired
+<i>25</i>&nbsp;    private BuildingService buildingService;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>28</i>&nbsp;    @ApiOperation(value = &quot;Returns all buildings&quot;)
+<b class="fc"><i>29</i>&nbsp;    @RequestMapping(method = GET)</b>
+<i>30</i>&nbsp;    public ResponseEntity getAllBuildings() throws IOException {
+<i>31</i>&nbsp;        return respond(buildingService.getRepository().findAll(), HttpStatus.OK);
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>35</i>&nbsp;    @ApiOperation(value = &quot;Returns building by id&quot;)
+<i>36</i>&nbsp;    @ApiImplicitParams({
+<i>37</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)
+<b class="fc"><i>38</i>&nbsp;    })</b>
+<i>39</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = GET)
+<i>40</i>&nbsp;    public ResponseEntity getBuilding(@PathVariable(&quot;id&quot;) Long id) throws IOException {
+<i>41</i>&nbsp;        return respond(buildingService.getRepository().getById(id), HttpStatus.OK);
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>45</i>&nbsp;    @ApiOperation(value = &quot;Deletes building by id&quot;)
+<i>46</i>&nbsp;    @ApiImplicitParams({
+<b class="fc"><i>47</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)</b>
+<b class="fc"><i>48</i>&nbsp;    })</b>
+<i>49</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = DELETE)
+<i>50</i>&nbsp;    public ResponseEntity deleteBuilding(@PathVariable(&quot;id&quot;) Long id) throws IOException {
+<i>51</i>&nbsp;        buildingService.getRepository().deleteById(id);
+<i>52</i>&nbsp;        return respond(HttpStatus.OK);
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>56</i>&nbsp;    @ApiOperation(value = &quot;Modifies building by id&quot;)
+<i>57</i>&nbsp;    @ApiImplicitParams({
+<b class="fc"><i>58</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)</b>
+<b class="fc"><i>59</i>&nbsp;    })</b>
+<b class="fc"><i>60</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = PUT)</b>
+<i>61</i>&nbsp;    public ResponseEntity editBuilding(@PathVariable(&quot;id&quot;) Long id,
+<i>62</i>&nbsp;                                       @RequestBody Building building) throws IOException {
+<i>63</i>&nbsp;        building.setId(id);
+<i>64</i>&nbsp;        buildingService.getRepository().save(building);
+<i>65</i>&nbsp;        return respond(HttpStatus.OK);
+<b class="fc"><i>66</i>&nbsp;    }</b>
+<b class="fc"><i>67</i>&nbsp;</b>
+<i>68</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>69</i>&nbsp;    @ApiOperation(value = &quot;Adds building&quot;)
+<i>70</i>&nbsp;    @RequestMapping(method = POST)
+<i>71</i>&nbsp;    public ResponseEntity addBuilding(@RequestBody Building building) throws IOException {
+<i>72</i>&nbsp;        buildingService.getRepository().save(building);
+<i>73</i>&nbsp;        return respond(HttpStatus.OK);
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

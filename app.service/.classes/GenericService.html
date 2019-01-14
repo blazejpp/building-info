@@ -1,0 +1,76 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: GenericService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: GenericService (app.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">GenericService</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Model;
+<i>4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import java.math.BigDecimal;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/**
+<i>9</i>&nbsp; * GenericService to interfejs będący częścią wzroca projektowego &lt;b&gt;Strategia&lt;/b&gt;. 
+<i>10</i>&nbsp; * Definiuje on operacje, które muszą obsługiwać wszystkie dostępne algorytmy.
+<i>11</i>&nbsp;*/
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;public interface GenericService&lt;T extends Model&gt; {
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    JpaRepository&lt;T, Long&gt; getRepository();
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    BigDecimal calculateArea(T t);
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    BigDecimal calculateVolume(T t);
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    BigDecimal calculateLighting(T t);
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    BigDecimal calculateLightingPerArea(T t);
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    BigDecimal calculateHeating(T t);
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    BigDecimal calculateHeatingPerVolume(T t);
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

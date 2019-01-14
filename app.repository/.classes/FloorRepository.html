@@ -1,0 +1,57 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FloorRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FloorRepository (app.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">FloorRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Floor;
+<i>4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;public interface FloorRepository extends JpaRepository&lt;Floor, Long&gt; {
+<i>7</i>&nbsp;    Floor findByBuildingIdAndNumber(Long id, Long number);
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;    Floor getById(Long id);
+<i>10</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

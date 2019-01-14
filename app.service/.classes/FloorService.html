@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: FloorService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: FloorService (app.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">FloorService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Floor;
+<i>4</i>&nbsp;import app.repository.FloorRepository;
+<i>5</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>6</i>&nbsp;import org.springframework.stereotype.Service;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.math.BigDecimal;
+<i>9</i>&nbsp;import java.math.MathContext;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * FloorService jest komponentem aplikacji, który wykonuje operacje wyliczające własności piętra.
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@Service
+<b class="fc"><i>16</i>&nbsp;public class FloorService implements GenericService&lt;Floor&gt; {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @Autowired
+<i>19</i>&nbsp;    private FloorRepository floorRepository;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Autowired
+<i>22</i>&nbsp;    private RoomService roomService;
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    public FloorRepository getRepository() {
+<b class="fc"><i>25</i>&nbsp;        return floorRepository;</b>
+<i>26</i>&nbsp;    }
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    /**
+<i>29</i>&nbsp;     * Metoda zwracająca łączną powierzchnię danego piętra.
+<i>30</i>&nbsp;     * @param floor     piętro, którego łączna powierzchnia zostanie policzona
+<i>31</i>&nbsp;     * @return          łączna powierzchnia na danym piętrze
+<i>32</i>&nbsp;    */
+<i>33</i>&nbsp;    public BigDecimal calculateArea(Floor floor) {
+<b class="fc"><i>34</i>&nbsp;        return floor.getRooms().stream().map(r -&gt; roomService.calculateArea(r)).reduce(BigDecimal.ZERO, BigDecimal::add);</b>
+<i>35</i>&nbsp;    }
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Metoda zwracająca łączną kubaturę piętra podanego na wejściu.
+<i>39</i>&nbsp;     * @param floor     piętro, którego łączna kubatura zostanie policzona
+<i>40</i>&nbsp;     * @return          łączna kubatura na danym piętrze
+<i>41</i>&nbsp;    */
+<i>42</i>&nbsp;    public BigDecimal calculateVolume(Floor floor) {
+<b class="fc"><i>43</i>&nbsp;        return floor.getRooms().stream().map(r -&gt; roomService.calculateVolume(r)).reduce(BigDecimal.ZERO, BigDecimal::add);</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * Metoda zwracająca łączną moc oświetlenia.
+<i>48</i>&nbsp;     * @param floor     piętro, którego moc oświetlenia ma zostać policzona
+<i>49</i>&nbsp;     * @return          wartość mocy oświetlenia na danym piętrze
+<i>50</i>&nbsp;    */
+<i>51</i>&nbsp;    public BigDecimal calculateLighting(Floor floor) {
+<b class="fc"><i>52</i>&nbsp;        return floor.getRooms().stream().map(r -&gt; roomService.calculateLighting(r)).reduce(BigDecimal.ZERO, BigDecimal::add);</b>
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * Metoda zwracająca moc oświetlenia na m^2.
+<i>57</i>&nbsp;     * @param floor     piętro, którego moc oświetlenia ma zostać policzona
+<i>58</i>&nbsp;     * @return          wartość mocy oświetlenia w przeliczeniu na m^2 na danym piętrze
+<i>59</i>&nbsp;    */
+<i>60</i>&nbsp;    public BigDecimal calculateLightingPerArea(Floor floor) {
+<b class="fc"><i>61</i>&nbsp;        return calculateLighting(floor).divide(calculateArea(floor), MathContext.DECIMAL32);</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Metoda zwracająca łączny poziom zużycia energii ogrzewania.
+<i>66</i>&nbsp;     * @param floor     piętro, którego wartość zużycia energii zostanie policzona
+<i>67</i>&nbsp;     * @return          poziom zużycia energii ogrzewania na danym piętrze
+<i>68</i>&nbsp;    */
+<i>69</i>&nbsp;    public BigDecimal calculateHeating(Floor floor) {
+<b class="fc"><i>70</i>&nbsp;        return floor.getRooms().stream().map(r -&gt; roomService.calculateHeating(r)).reduce(BigDecimal.ZERO, BigDecimal::add);</b>
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /**
+<i>74</i>&nbsp;     * Metoda zwracająca poziom zużycia energii ogrzewania na m^2.
+<i>75</i>&nbsp;     * @param floor     piętro, którego wartość zużycia energii zostanie policzona
+<i>76</i>&nbsp;     * @return          poziom zużycia energii ogrzewania na danym piętrze w przeliczeniu na m^2 
+<i>77</i>&nbsp;    */
+<i>78</i>&nbsp;    public BigDecimal calculateHeatingPerVolume(Floor floor) {
+<b class="nc"><i>79</i>&nbsp;        return calculateHeating(floor).divide(calculateVolume(floor), MathContext.DECIMAL32);</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

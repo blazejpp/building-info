@@ -1,0 +1,160 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: VolumeController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: VolumeController (app.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">VolumeController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    14,3%
+  </span>
+  <span class="absValue">
+    (1/ 7)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Building;
+<i>4</i>&nbsp;import app.model.Floor;
+<i>5</i>&nbsp;import app.model.Room;
+<i>6</i>&nbsp;import app.service.BuildingService;
+<i>7</i>&nbsp;import app.service.FloorService;
+<i>8</i>&nbsp;import app.service.RoomService;
+<i>9</i>&nbsp;import app.visitor.VolumeVisitor;
+<i>10</i>&nbsp;import io.swagger.annotations.ApiImplicitParam;
+<i>11</i>&nbsp;import io.swagger.annotations.ApiImplicitParams;
+<i>12</i>&nbsp;import io.swagger.annotations.ApiOperation;
+<i>13</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>14</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>15</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>16</i>&nbsp;import org.springframework.security.access.annotation.Secured;
+<i>17</i>&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+<i>18</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>19</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;import java.io.IOException;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;import static org.springframework.web.bind.annotation.RequestMethod.GET;
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;@RestController
+<b class="fc"><i>26</i>&nbsp;@RequestMapping(&quot;/volume&quot;)</b>
+<i>27</i>&nbsp;public class VolumeController extends Controller {
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    @Autowired
+<i>30</i>&nbsp;    private BuildingService buildingService;
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Autowired
+<i>33</i>&nbsp;    private FloorService floorService;
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Autowired
+<i>36</i>&nbsp;    private RoomService roomService;
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    @Autowired
+<i>39</i>&nbsp;    private VolumeVisitor volumeVisitor;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Secured({&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;})
+<i>42</i>&nbsp;    @ApiOperation(value = &quot;Returns total building volume by id&quot;)
+<i>43</i>&nbsp;    @ApiImplicitParams({
+<i>44</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)
+<i>45</i>&nbsp;    })
+<i>46</i>&nbsp;    @RequestMapping(value = &quot;/building/{id}&quot;, method = GET)
+<b class="nc"><i>47</i>&nbsp;    public ResponseEntity getBuildingVolume(@PathVariable(&quot;id&quot;) Long id) throws IOException {</b>
+<b class="nc"><i>48</i>&nbsp;        Building building = buildingService.getRepository().getById(id);</b>
+<i>49</i>&nbsp;        return respond(volumeVisitor.calculate(building), HttpStatus.OK);
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    @Secured({&quot;ROLE_USER&quot;, &quot;ROLE_ADMIN&quot;})
+<i>53</i>&nbsp;    @ApiOperation(value = &quot;Returns total floor volume by number and building id&quot;)
+<i>54</i>&nbsp;    @ApiImplicitParams({
+<i>55</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;),
+<i>56</i>&nbsp;            @ApiImplicitParam(name = &quot;number&quot;, value = &quot;Floor number&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)
+<i>57</i>&nbsp;    })
+<i>58</i>&nbsp;    @RequestMapping(value = &quot;/building/{id}/floor/{number}&quot;, method = GET)
+<i>59</i>&nbsp;    public ResponseEntity getFloorVolume(@PathVariable(&quot;id&quot;) Long id,
+<b class="nc"><i>60</i>&nbsp;                                       @PathVariable(&quot;number&quot;) Long number) throws IOException {</b>
+<b class="nc"><i>61</i>&nbsp;        Floor floor = floorService.getRepository().findByBuildingIdAndNumber(id, number);</b>
+<i>62</i>&nbsp;        return respond(volumeVisitor.calculate(floor), HttpStatus.OK);
+<i>63</i>&nbsp;    }
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>66</i>&nbsp;    @ApiOperation(value = &quot;Returns total room volume by number and building id&quot;)
+<i>67</i>&nbsp;    @ApiImplicitParams({
+<i>68</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Building ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;),
+<i>69</i>&nbsp;            @ApiImplicitParam(name = &quot;number&quot;, value = &quot;Room number&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)
+<i>70</i>&nbsp;    })
+<i>71</i>&nbsp;    @RequestMapping(value = &quot;/building/{id}/room/{number}&quot;, method = GET)
+<i>72</i>&nbsp;    public ResponseEntity getRoomVolume(@PathVariable(&quot;id&quot;) Long id,
+<b class="nc"><i>73</i>&nbsp;                                      @PathVariable(&quot;number&quot;) Long number) throws IOException {</b>
+<b class="nc"><i>74</i>&nbsp;        Room room = roomService.getRepository().findByBuildingIdAndNumber(id, number);</b>
+<i>75</i>&nbsp;        return respond(volumeVisitor.calculate(room), HttpStatus.OK);
+<i>76</i>&nbsp;    }
+<i>77</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

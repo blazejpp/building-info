@@ -1,0 +1,159 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomController</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.controller</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomController (app.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoomController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    16,7%
+  </span>
+  <span class="absValue">
+    (1/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    10%
+  </span>
+  <span class="absValue">
+    (1/ 10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.controller;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Room;
+<i>4</i>&nbsp;import app.service.RoomService;
+<i>5</i>&nbsp;import io.swagger.annotations.*;
+<i>6</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>7</i>&nbsp;import org.springframework.http.HttpStatus;
+<i>8</i>&nbsp;import org.springframework.http.ResponseEntity;
+<i>9</i>&nbsp;import org.springframework.security.access.annotation.Secured;
+<i>10</i>&nbsp;import org.springframework.web.bind.annotation.PathVariable;
+<i>11</i>&nbsp;import org.springframework.web.bind.annotation.RequestBody;
+<i>12</i>&nbsp;import org.springframework.web.bind.annotation.RequestMapping;
+<i>13</i>&nbsp;import org.springframework.web.bind.annotation.RestController;
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;import java.io.IOException;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;import static org.springframework.web.bind.annotation.RequestMethod.*;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;@RestController
+<i>20</i>&nbsp;@RequestMapping(&quot;/rooms&quot;)
+<b class="fc"><i>21</i>&nbsp;@Api(value = &quot;Room controller&quot;, description = &quot;Room controller&quot;)</b>
+<i>22</i>&nbsp;public class RoomController extends Controller {
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @Autowired
+<i>25</i>&nbsp;    private RoomService roomService;
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>28</i>&nbsp;    @ApiOperation(value = &quot;Returns all rooms&quot;)
+<b class="nc"><i>29</i>&nbsp;    @RequestMapping(method = GET)</b>
+<i>30</i>&nbsp;    public ResponseEntity getAllRooms() throws IOException {
+<i>31</i>&nbsp;        return respond(roomService.getRepository().findAll(), HttpStatus.OK);
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>35</i>&nbsp;    @ApiOperation(value = &quot;Returns room by id&quot;)
+<i>36</i>&nbsp;    @ApiImplicitParams({
+<i>37</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Room ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)
+<b class="nc"><i>38</i>&nbsp;    })</b>
+<i>39</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = GET)
+<i>40</i>&nbsp;    public ResponseEntity getRoom(@PathVariable(&quot;id&quot;) Long id) throws IOException {
+<i>41</i>&nbsp;        return respond(roomService.getRepository().getById(id), HttpStatus.OK);
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>45</i>&nbsp;    @ApiOperation(value = &quot;Deletes room by id&quot;)
+<i>46</i>&nbsp;    @ApiImplicitParams({
+<b class="nc"><i>47</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Room ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)</b>
+<b class="nc"><i>48</i>&nbsp;    })</b>
+<i>49</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = DELETE)
+<i>50</i>&nbsp;    public ResponseEntity deleteRoom(@PathVariable(&quot;id&quot;) Long id) throws IOException {
+<i>51</i>&nbsp;        roomService.getRepository().deleteById(id);
+<i>52</i>&nbsp;        return respond(HttpStatus.OK);
+<i>53</i>&nbsp;    }
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>56</i>&nbsp;    @ApiOperation(value = &quot;Modifies room by id&quot;)
+<i>57</i>&nbsp;    @ApiImplicitParams({
+<b class="nc"><i>58</i>&nbsp;            @ApiImplicitParam(name = &quot;id&quot;, value = &quot;Room ID&quot;, dataType = &quot;long&quot;, paramType = &quot;path&quot;)</b>
+<b class="nc"><i>59</i>&nbsp;    })</b>
+<b class="nc"><i>60</i>&nbsp;    @RequestMapping(value = &quot;/{id}&quot;, method = PUT)</b>
+<i>61</i>&nbsp;    public ResponseEntity editRoom(@PathVariable(&quot;id&quot;) Long id,
+<i>62</i>&nbsp;                                       @RequestBody Room room) throws IOException {
+<i>63</i>&nbsp;        room.setId(id);
+<i>64</i>&nbsp;        roomService.getRepository().save(room);
+<i>65</i>&nbsp;        return respond(HttpStatus.OK);
+<b class="nc"><i>66</i>&nbsp;    }</b>
+<b class="nc"><i>67</i>&nbsp;</b>
+<i>68</i>&nbsp;    @Secured(&quot;ROLE_ADMIN&quot;)
+<i>69</i>&nbsp;    @ApiOperation(value = &quot;Adds room&quot;)
+<i>70</i>&nbsp;    @RequestMapping(method = POST)
+<i>71</i>&nbsp;    public ResponseEntity addRoom(@RequestBody Room room) throws IOException {
+<i>72</i>&nbsp;        roomService.getRepository().save(room);
+<i>73</i>&nbsp;        return respond(HttpStatus.OK);
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomRepository</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.repository</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomRepository (app.repository)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">RoomRepository</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.repository;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Room;
+<i>4</i>&nbsp;import org.springframework.data.jpa.repository.JpaRepository;
+<i>5</i>&nbsp;import org.springframework.data.jpa.repository.Query;
+<i>6</i>&nbsp;import org.springframework.data.repository.query.Param;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;public interface RoomRepository extends JpaRepository&lt;Room, Long&gt; {
+<i>9</i>&nbsp;    @Query(&quot;select r from Room r where r.floor.building.id = :id and r.number = :number&quot;)
+<i>10</i>&nbsp;    Room findByBuildingIdAndNumber(@Param(&quot;id&quot;) Long id, @Param(&quot;number&quot;) Long number);
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    Room getById(Long id);
+<i>13</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoomService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoomService (app.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoomService</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$75Bt0PEj</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$alDLLO4o</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$aZy0FTcf</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$OFo7ZOfz</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$sGyPbtS4</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$VhqYvyGi</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$wu2KPrtn</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$XvAvVqBh</td>
+  </tr>
+  <tr>
+    <td class="name">RoomService$MockitoMock$1503103540$auxiliary$Z7qfLnF7</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import app.model.Room;
+<i>4</i>&nbsp;import app.repository.RoomRepository;
+<i>5</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i>6</i>&nbsp;import org.springframework.stereotype.Service;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.math.BigDecimal;
+<i>9</i>&nbsp;import java.math.MathContext;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * RoomService jest komponentem aplikacji, który wykonuje operacje wyliczające własności pokoju.
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;@Service
+<b class="fc"><i>16</i>&nbsp;public class RoomService implements GenericService&lt;Room&gt; {</b>
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;    @Autowired
+<i>19</i>&nbsp;    private RoomRepository roomRepository;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    public RoomRepository getRepository() {
+<b class="fc"><i>22</i>&nbsp;        return roomRepository;</b>
+<i>23</i>&nbsp;    }
+<i>24</i>&nbsp;    
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * Metoda zwracająca powierzchnię pokoju.
+<i>27</i>&nbsp;     * @param room      pokój, którego łączna powierzchnia zostanie zwrócona
+<i>28</i>&nbsp;     * @return          powierzchnia danego pokoju
+<i>29</i>&nbsp;    */
+<i>30</i>&nbsp;    public BigDecimal calculateArea(Room room) {
+<b class="fc"><i>31</i>&nbsp;        return room.getFloorArea();</b>
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;    
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Metoda zwracająca kubaturę pomieszczenia.
+<i>36</i>&nbsp;     * @param room      pokój, którego łączna kubatura nas interesuje
+<i>37</i>&nbsp;     * @return          powierzchnia danego pokoju
+<i>38</i>&nbsp;    */
+<i>39</i>&nbsp;    public BigDecimal calculateVolume(Room room) {
+<b class="fc"><i>40</i>&nbsp;        return calculateArea(room).multiply(room.getHeight());</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Metoda zwracająca łączną moc oświetlenia
+<i>45</i>&nbsp;     * @param room      pokój, którego moc oświetlenia zostanie zwrócona
+<i>46</i>&nbsp;     * @return          moc oświetlenia danego pokoju
+<i>47</i>&nbsp;    */
+<i>48</i>&nbsp;    public BigDecimal calculateLighting(Room room) {
+<b class="fc"><i>49</i>&nbsp;        return room.getLightingPower();</b>
+<i>50</i>&nbsp;    }
+<i>51</i>&nbsp;
+<i>52</i>&nbsp;    /**
+<i>53</i>&nbsp;     * Metoda zwracająca moc oświetlenia w przeliczeniu na m^2
+<i>54</i>&nbsp;     * @param room      pokój, którego moc oświetlenia w przeliczeniu na m^2 zostanie policzona
+<i>55</i>&nbsp;     * @return          moc oświetlenia w przeliczeniu na m^2 danego pokoju
+<i>56</i>&nbsp;    */
+<i>57</i>&nbsp;    public BigDecimal calculateLightingPerArea(Room room) {
+<b class="fc"><i>58</i>&nbsp;        return calculateLighting(room).divide(calculateArea(room), MathContext.DECIMAL32);</b>
+<i>59</i>&nbsp;    }
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /**
+<i>62</i>&nbsp;     * Metoda zwracająca łączny poziom zużycia energii ogrzewania.
+<i>63</i>&nbsp;     * @param room      pokój, którego poziom zużycia energii ogrzewania zostanie zwrócony
+<i>64</i>&nbsp;     * @return          poziom zużycia energii ogrzewania danego pokoju
+<i>65</i>&nbsp;    */
+<i>66</i>&nbsp;    public BigDecimal calculateHeating(Room room) {
+<b class="fc"><i>67</i>&nbsp;        return room.getHeatingPower();</b>
+<i>68</i>&nbsp;    }
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /**
+<i>71</i>&nbsp;     * Metoda zwracająca poziom zużycia energii ogrzewania w przeliczeniu na m^2
+<i>72</i>&nbsp;     * @param room      pokój, którego poziom zużycia energii ogrzewania w przeliczeniu na m^2 zostanie policzona
+<i>73</i>&nbsp;     * @return          poziom zużycia energii ogrzewania w przeliczeniu na m^2 danego pokoju
+<i>74</i>&nbsp;    */
+<i>75</i>&nbsp;    public BigDecimal calculateHeatingPerVolume(Room room) {
+<b class="fc"><i>76</i>&nbsp;        return calculateHeating(room).divide(calculateVolume(room), MathContext.DECIMAL32);</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>

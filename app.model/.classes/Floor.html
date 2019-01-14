@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Floor</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">app.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Floor (app.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Floor</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75%
+  </span>
+  <span class="absValue">
+    (6/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Floor$FloorBuilder</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">Floor$HibernateProxy$oQsRfu7z</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    77,8%
+  </span>
+  <span class="absValue">
+    (7/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    77,8%
+  </span>
+  <span class="absValue">
+    (7/ 9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package app.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.annotation.JsonIgnore;
+<i>4</i>&nbsp;import lombok.AllArgsConstructor;
+<i>5</i>&nbsp;import lombok.Builder;
+<i>6</i>&nbsp;import lombok.Data;
+<i>7</i>&nbsp;import lombok.NoArgsConstructor;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import javax.persistence.*;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Floor to klasa opisująca strukturę piętra.
+<i>14</i>&nbsp; * &lt;p&gt;
+<i>15</i>&nbsp; * Zawiera następujące pola:
+<i>16</i>&nbsp; * &lt;ul&gt;
+<i>17</i>&nbsp; * &lt;li&gt; id - indeks pozwalający na jednoznaczną identyfikację piętra generowany automatycznie
+<i>18</i>&nbsp; * &lt;li&gt; number - numer piętra
+<i>19</i>&nbsp; * &lt;li&gt; building - budynek, do którego piętro przynależy
+<i>20</i>&nbsp; * &lt;li&gt; rooms - lista przechowująca pokoje znajdujące się na danym piętrze
+<i>21</i>&nbsp; * &lt;/ul&gt;
+<i>22</i>&nbsp; * &lt;p&gt;
+<i>23</i>&nbsp; * Klasa zawiera zdefiniowane mapowanie z bazą danych.
+<i>24</i>&nbsp; * &lt;p&gt;
+<i>25</i>&nbsp; * Zastosowanie adnotacji @Data pozwala na generowanie tzw. boilerplate automatycznie.
+<i>26</i>&nbsp; */
+<i>27</i>&nbsp;@Entity
+<i>28</i>&nbsp;@Table(name = &quot;floor&quot;)
+<b class="nc"><i>29</i>&nbsp;@Data</b>
+<b class="fc"><i>30</i>&nbsp;@Builder</b>
+<b class="fc"><i>31</i>&nbsp;@NoArgsConstructor</b>
+<b class="fc"><i>32</i>&nbsp;@AllArgsConstructor</b>
+<i>33</i>&nbsp;public class Floor extends Model {
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Id
+<i>36</i>&nbsp;    @GeneratedValue
+<i>37</i>&nbsp;    @Column(name = &quot;id&quot;)
+<b class="fc"><i>38</i>&nbsp;    private Long id;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Column(name = &quot;number&quot;)
+<b class="fc"><i>41</i>&nbsp;    private Long number;</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    @JoinColumn(name = &quot;building_id&quot;)
+<i>44</i>&nbsp;    @ManyToOne
+<i>45</i>&nbsp;    @JsonIgnore
+<b class="nc"><i>46</i>&nbsp;    private Building building;</b>
+<i>47</i>&nbsp;
+<i>48</i>&nbsp;    @OneToMany(mappedBy = &quot;floor&quot;)
+<b class="fc"><i>49</i>&nbsp;    private List&lt;Room&gt; rooms;</b>
+<i>50</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2019-01-14 18:04</div>
+</div>
+</body>
+</html>
