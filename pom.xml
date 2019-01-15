@@ -6,7 +6,7 @@
 
     <groupId>org.springframework</groupId>
     <artifactId>building-info</artifactId>
-    <version>0.2</version>
+    <version>0.3</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
