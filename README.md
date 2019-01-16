@@ -18,3 +18,17 @@ Aplikacja dla administratorów budynków, którzy pragną optymalizować koszty 
 
 ### Wymagania
 https://docs.google.com/spreadsheets/d/e/2PACX-1vSxEKEBzcopOqfu9OHFwQkD2oDQlztfqAW0Tf_IXjElZQyKDUrzl4-oxI78NQEHZaLh1Vorl2RSyEf3/pubhtml
+
+### Instrukcje uruchomienia
+1. Instalacja bazy danych MYSQL
+2. Utworzenie bazy danych w MYSQL
+```sh
+mysql> CREATE DATABASE building-info;
+```
+3. W /src/main/resorces/application.properties przypisać do pól spring.datasource.username i spring.datasource.password nazwę użytkownika i hasło do utworzonej w pkt. 2 bazy danych.
+4. W katalogu głównym uruchomić terminal i wpisać
+```sh
+$ mvn spring-boot:run
+```
+5. Aplikację można zobaczyć w przeglądarce pod adresem http://localhost:8080/swagger-ui.html
+6. Plik .jar znajduje się w /target/
